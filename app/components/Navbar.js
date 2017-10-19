@@ -23,6 +23,9 @@ export default class Main extends Component {
             <li>
               <a href="/campuses">Campuses</a>
             </li>
+            <li>
+              <a href="/edit">Edit Campuses</a>
+            </li>
           </ul>
         </div>
       </div>

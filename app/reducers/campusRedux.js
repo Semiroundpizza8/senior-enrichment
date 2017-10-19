@@ -11,7 +11,7 @@ const DELETE_CAMPUS = 'DELETE_CAMPUS';
 
 const allCampuses   = campuses => ({ type: GET_CAMPUSES, campuses });
 const createCampus  = campus => ({ type: POST_CAMPUS, campus });
-const updateCampus = campus => ({ type: PUT_CAMPUS, campus });
+const updateCampus = campus => ({ type: PUT_CAMPUS, update });
 const removeCampus = campus => ({ type: DELETE_CAMPUS, id });
 
 /* ------------       REDUCERS     ------------------ */
@@ -51,10 +51,10 @@ export const postCampus = campuses => dispatch => {
     .catch(err => console.error('Posting student unsuccessful', err))
 }
 
-export const putCampus = (id, update) => dispatch => {
-  axios.post(`api/student/${id}`, update)
+export const putCampus = (id, student) => dispatch => {
+  axios.post(`api/student/${id}`, student)
     .then(res => dispatch(updateCampus(res.data)))
-    .catch(err => console.error('Updating student unsuccessful', err))
+    .catch(err => console.error(`Updating student ${student} unsuccessful`, err))
 }
 
 export const deleteCampus = id => dispatch => {

@@ -5,7 +5,7 @@ const Campuses = db.model("Campus");
 const Students = db.model("Student");
 
 router.get('/', (req, res, next) => {
-    Students.findAll({})
+    Students.findAll({ include: [Campuses]})
     .then(studentArr => {
       res.json(studentArr);
     })

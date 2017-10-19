@@ -12,7 +12,7 @@ const PUT_STUDENT = 'PUT_STUDENT';
 const allStudents   = students => ({ type: GET_STUDENTS, students });
 const createStudent = student => ({ type: POST_STUDENT, student});
 const removeStudent = id => ({ type: REMOVE_STUDENT, id });
-const updateStudent = update => ({ type: PUT_STUDENT, update });
+const updateStudent = student => ({ type: PUT_STUDENT, student });
 
 
 /* ------------       REDUCERS     ------------------ */
@@ -28,8 +28,10 @@ export default function reducer (students = [], action) {
       return action.students;
 
     case PUT_STUDENT:
-      return action.student; /*FIX*/
-    
+    return students.map(student => (
+      action.student.id === student.id ? action.student : student
+    ))
+
     case DELETE_STUDENT:
       return students.filter(student => student.id !== action.id);
 
@@ -58,8 +60,8 @@ export const deleteStudent = id => dispatch => {
     .catch(err => console.error('Posting student unsuccessful', err))
 }
 
-export const putStudent = (id, update) => {
-  axios.put(`api/student/${id}`)
-    .then(res => dispatch(updateStudent))
+export const putStudent = (id, student) => dispatch => {
+  axios.put(`api/student/${id}`, student)
+    .then(res => dispatch(updateStudent(res.data)))
     .catch(err => console.error('Updating student unsuccessful', err))
 }
