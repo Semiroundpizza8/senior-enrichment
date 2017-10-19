@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import Main from './Main.js';
+import Campuses from './Main.js';
+import Home from './Home.js';
 import Navbar from './Navbar.js';
 import Footer from './Footer.js';
-import Student from './Students.js';
+import Students from './Students.js';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'; // choose router type
+import store from '../store'
+import { connect } from 'react-redux';
+import { getStudents, getCampuses } from '../reducers';
 
-export default class Root extends Component {
-  constructor() {
-    super()
+class Root extends Component {
+  constructor(props) {
+    super(props);
   }
 
   componentDidMount() {
+    this.props.fetchInitialData();
+    console.log("PROPS", this.props)
   }
 
   render() {
@@ -19,8 +25,11 @@ export default class Root extends Component {
         <Navbar />
         <Router>
           <div>
-            <Route exact path='/' component={Main} />
-            <Route path='/students' component={Student} />
+            <Route exact path='/' component={Home} />
+            <Route path='/campuses' component={Campuses} />
+            <Route path='/students' component={Students} />
+            {/* <Route path='/students/:id' component={SingleStudent} />
+            <Route path='/campuses/:id' component={SingleCampus} /> */}
           </div>
         </Router>
         <Footer />
@@ -29,9 +38,12 @@ export default class Root extends Component {
   }
 }
 
-const mapPropsToState = null;
-const mapDispatchToState = dispatch => {
+const mapState = null;
+const mapDispatch = dispatch => ({
   fetchInitialData: () => {
     dispatch(getStudents());
+    dispatch(getCampuses());
   }
-}
+});
+
+export default connect(mapState, mapDispatch)(Root)

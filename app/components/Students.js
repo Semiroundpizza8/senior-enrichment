@@ -1,56 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store from './store'
-const students = [
-  {
-    name: "Benjamin Odisho",
-    email: "Semiroundpizza8@gmail.com",
-    id: 1,
-    campus: "Fullstack Academy"
-  },
-  {
-    name: "Corey Mertz",
-    email: "Frosty@cupcakes.com",
-    id: 2,
-    campus: "Halfstacks Pancakery"
-  },
-  {
-    name: "Lo Renzo",
-    email: "Puppy@dog.net",
-    id: 3,
-    campus: "Waggers United"
-  },
-  {
-    name: "Corey Mertz",
-    email: "Frosty@cupcakes.com",
-    id: 4,
-    campus: "Halfstacks Pancakery"
-  },
-  {
-    name: "Lo Renzo",
-    email: "Puppy@dog.net",
-    id: 5,
-    campus: "Waggers United"
-  },
-  {
-    name: "Benjamin Odisho",
-    email: "Semiroundpizza8@gmail.com",
-    id: 6,
-    campus: "Fullstack Academy"
-  },
-  {
-    name: "Corey Mertz",
-    email: "Frosty@cupcakes.com",
-    id: 7,
-    campus: "Halfstacks Pancakery"
-  },
-  {
-    name: "Lo Renzo",
-    email: "Puppy@dog.net",
-    id: 8,
-    campus: "Waggers United"
-  }
-]
+import store from '../store.jsx';
+import { getStudents } from '../reducers';
 
 //----------------
 //COMPONENT
@@ -63,7 +14,7 @@ class Main extends Component {
 
   componentDidMount() {
     console.log("DID MOUNT")
-    console.log(store.getState())
+    console.log(store)
   }
 
   studentCell(student) {
@@ -78,12 +29,16 @@ class Main extends Component {
   }
 
   render() {
+    console.log("IN REND", store.getState())
+    console.log("ALSO IN REND", this.props)
     return (
       <div className="middle">
-        <div className="campusFrames">
-          <div className="container">
-
-            <table className="table">
+        <div className="container">
+          <div className="row">
+            <h1 className='col-md-offset-1'>Students</h1>
+          </div>
+          <div className="campusFrames">
+            <table className="table col-md-10">
               <thead className="thead-inverse">
                 <tr>
                   <th>#</th>
@@ -93,7 +48,7 @@ class Main extends Component {
                 </tr>
               </thead>
               <tbody>
-                {students.map(student => this.studentCell(student))}
+                {this.props.students.map(student => this.studentCell(student))}
               </tbody>
             </table>
 
@@ -108,12 +63,8 @@ class Main extends Component {
 //CONTAINER
 //-------------------------
 
-const mapStateToProps = null
+const mapStateToProps = ({ students }) => ({ students });
 const mapDispatch = dispatch => ({
-  fetchInitialData: () => {
-    dispatch(getStudents());
-    // what other data might we want to fetch on app load?
-  }
 });
 
 export default connect(mapStateToProps, mapDispatch)(Main)

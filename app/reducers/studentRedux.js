@@ -4,11 +4,16 @@ import axios from 'axios';
 
 const GET_STUDENTS = 'GET_STUDENTS';
 const POST_STUDENT = 'POST_STUDENT';
+const DELETE_STUDENT = 'DELETE_STUDENT';
+const PUT_STUDENT = 'PUT_STUDENT';
 
 /* ------------   ACTION CREATORS     ------------------ */
 
 const allStudents   = students => ({ type: GET_STUDENTS, students });
-const createStudent = student => ({ type: POST_STUDENT, student})
+const createStudent = student => ({ type: POST_STUDENT, student});
+const removeStudent = id => ({ type: REMOVE_STUDENT, id });
+const updateStudent = update => ({ type: PUT_STUDENT, update });
+
 
 /* ------------       REDUCERS     ------------------ */
 
@@ -19,7 +24,14 @@ export default function reducer (students = [], action) {
       return [...students, action.student];
 
     case GET_STUDENTS:
+      console.log("STUDENTS", action.students);
       return action.students;
+
+    case PUT_STUDENT:
+      return action.student; /*FIX*/
+    
+    case DELETE_STUDENT:
+      return students.filter(student => student.id !== action.id);
 
     default:
       return students;
@@ -36,6 +48,18 @@ export const getStudents = () => dispatch => {
 
 export const postStudent = students => dispatch => {
   axios.post('api/student', students)
-    .then(res => dispatch(postStudent(res)))
+    .then(res => dispatch(postStudent(res.data)))
     .catch(err => console.error('Posting student unsuccessful', err))
+}
+
+export const deleteStudent = id => dispatch => {
+  axios.delete(`api/student/${id}`)
+    .then(res => dispatch(removeStudent(res.data)))
+    .catch(err => console.error('Posting student unsuccessful', err))
+}
+
+export const putStudent = (id, update) => {
+  axios.put(`api/student/${id}`)
+    .then(res => dispatch(updateStudent))
+    .catch(err => console.error('Updating student unsuccessful', err))
 }

@@ -15,10 +15,13 @@ export default class Main extends Component {
           <a href="/" className="navbar-brand">Benjamin Odisho Senior Enrichment</a>
           <ul className="nav navbar-nav navbar-right">
             <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
               <a href="/students">Students</a>
             </li>
             <li>
-              <a href="/">Campuses</a>
+              <a href="/campuses">Campuses</a>
             </li>
           </ul>
         </div>

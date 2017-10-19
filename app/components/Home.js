@@ -13,23 +13,11 @@ class Main extends Component {
   componentDidMount() {
   }
 
-  campusView(campus) {
-    return (
-      <div className="col-md-4 col-sm-6 col-xs-12" key={campus.id}>
-        <img src={campus.image}></img>
-        <p>{campus.name}................................
-          <i className="glyphicon glyphicon-folder-open"></i>
-          <i className="glyphicon glyphicon-pencil"></i>
-          <i className="glyphicon glyphicon-remove"></i>
-        </p>
-      </div>
-    )
-  }
-
   render() {
     console.log(this.props)
     return (
       <div className="container">
+        <h1> HOME </h1>
         <div className="row">
           {this.props.campuses.map(campus => this.campusView(campus))}
           <div className="col-md-4 col-sm-6 col-xs-12">
