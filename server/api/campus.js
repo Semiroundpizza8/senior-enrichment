@@ -28,8 +28,8 @@ router.post('/', (req, res, next) => {
       return;
   }
   Campuses.findOrCreate({ where: {name: req.body.name} })
-  .then(function (user) {
-    res.status(201).json(user);
+  .then(campus => {
+    res.status(201).json(campus);
   })
   .catch(next);
 })

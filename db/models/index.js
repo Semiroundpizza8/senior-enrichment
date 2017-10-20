@@ -12,4 +12,4 @@ const Sequelize = require("sequelize");
 const Student = require("./student");
 const Campus = require("./campus");
 
-Student.belongsTo(Campus);
+Student.belongsTo(Campus, {onDelete: 'cascade'});

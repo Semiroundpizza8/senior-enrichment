@@ -11,7 +11,7 @@ const PUT_STUDENT = 'PUT_STUDENT';
 
 const allStudents   = students => ({ type: GET_STUDENTS, students });
 const createStudent = student => ({ type: POST_STUDENT, student});
-const removeStudent = id => ({ type: REMOVE_STUDENT, id });
+const removeStudent = id => ({ type: DELETE_STUDENT, id });
 const updateStudent = student => ({ type: PUT_STUDENT, student });
 
 
@@ -24,13 +24,10 @@ export default function reducer (students = [], action) {
       return [...students, action.student];
 
     case GET_STUDENTS:
-      console.log("STUDENTS", action.students);
       return action.students;
 
     case PUT_STUDENT:
-    return students.map(student => (
-      action.student.id === student.id ? action.student : student
-    ))
+      return students.map(student => ( action.student.id === student.CampusId ? action.student : student ))
 
     case DELETE_STUDENT:
       return students.filter(student => student.id !== action.id);
@@ -48,16 +45,17 @@ export const getStudents = () => dispatch => {
        .catch(err => console.error('Fetching students unsuccessful', err));
 };
 
-export const postStudent = students => dispatch => {
-  axios.post('api/student', students)
-    .then(res => dispatch(postStudent(res.data)))
+export const postStudent = student => dispatch => {
+  axios.post('api/student', student)
+    .then(res => dispatch(createStudent(res.data)))
     .catch(err => console.error('Posting student unsuccessful', err))
 }
 
 export const deleteStudent = id => dispatch => {
+  //Optimistic
+  dispatch(removeStudent(id));
   axios.delete(`api/student/${id}`)
-    .then(res => dispatch(removeStudent(res.data)))
-    .catch(err => console.error('Posting student unsuccessful', err))
+    .catch(err => console.error('Deleting student unsuccessful', err))
 }
 
 export const putStudent = (id, student) => dispatch => {

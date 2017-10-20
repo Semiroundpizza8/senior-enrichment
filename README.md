@@ -36,27 +36,27 @@ Use at least sequelize, express, react, and redux when creating this app. You ca
 #### See Wireframes folder for visual
 
 - Navigation: as a user I...
-  * will land on **Home** by default
+  XXXX * will land on **Home** by default
   XXXX * can navigate to **Campuses** from **Home**
   XXXX * can navigate to **Students** from **Home**
-  * can navigate to view a **Single Campus** from **Campuses**
-  * can navigate to view a **Single Student** from **Students**
-  * can navigate to view a **Single Student** from **Single Campus** (for any student at that campus)
-  * can navigate to view that student's **Single Campus** from **Single Student**
+  XXXX * can navigate to view a **Single Campus** from **Campuses**
+  XXXX * can navigate to view a **Single Student** from **Students**
+  XXXX * can navigate to view a **Single Student** from **Single Campus** (for any student at that campus)
+  XXXX * can navigate to view that student's **Single Campus** from **Single Student**
 
 - Views: as a user I...
   XXXX * see a list of all campuses on the **Campuses** view 
   XXXX * see a list of all students on the **Students** view
-  * see details about a campus on the **Single Campus** view, including that campus's students
+  XXXX see details about a campus on the **Single Campus** view, including that campus's students
   * see details about a student on the **Single Student** view, including that student's campus
 
 - Actions: as a user I...
-  * can create a campus
-  * can edit a campus's info, including adding/removing a student to/from that campus
-  * can delete a campus
-  * can create a student
-  * can edit a student's info, including the campus that student is assigned to
-  * can delete a student
+  XXXX * can create a campus
+  * can edit a campus's info, XXXX including adding/removing a student to/from that campus
+  XXXX * can delete a campus
+  XXXX * can create a student
+  * can edit a student's info, XXX including the campus that student is assigned to
+  XXXX * can delete a student
 
 ### Routes
 
