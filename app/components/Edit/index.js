@@ -31,7 +31,7 @@ class Edit extends Component {
   }
 
   handleDelete(id) {
-    store.dispatch(deleteStudent(id));
+    this.props.removeStudent(id);
   }
 
   studentCell(student) {
@@ -136,7 +136,7 @@ const mapDispatch = dispatch => ({
   updateStudent: (id, update) => {
     dispatch(putStudent(id, update));
   },
-  deleteStudent: (id) => {
+  removeStudent: (id) => {
     dispatch(deleteStudent(id));
   },
   addStudent: (student) => {

@@ -23,14 +23,12 @@ export default function reducer ( campuses = [], action) {
       return [...campuses, action.campus];
 
     case GET_CAMPUSES:
-      console.log("Campuses", action.campuses);
       return action.campuses;
 
     case PUT_CAMPUS:
       return action.campus;
 
     case DELETE_CAMPUS:
-      console.log("Campus being deleted");
       return campuses.filter(campus => campus.id !== action.id);
 
     default:

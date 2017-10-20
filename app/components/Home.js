@@ -14,15 +14,18 @@ class Main extends Component {
 
   render() {
     return (
-      <div className="container">
-        <h1> HOME </h1>
-        <p> This is the home. It should have content, but it doesnt. I know, you'd've thought he would've STARTED here but nope. My developer suuuuucks.</p>
-        <div className="row">
-          <div className="col-md-4 col-sm-6 col-xs-12">
-            <img src="http://www.placecage.com/gif/300/300"></img>
-            <p> Create Campus...........................................
-              <i className="glyphicon glyphicon-plus"></i>
-            </p>
+      <div>
+        <div className='topBody container'>
+          <div className='row'>
+            <div className='col-sm-6 well well-lg'>
+              <h2>Sort Your Campi</h2>
+              <p className='lead'>Untangle your campus databases with ease using this simple bootcamp project.</p>
+              <a href="/students"><button type='button' className='btn btn-lg btn-default'>Head to Students</button></a>
+              <a href="/campuses"><button type='button' className='btn btn-lg btn-primary'>Head to Campuses</button></a>
+            </div>
+            <div className='col-sm-6 hidden-sm hidden-xs'>
+              <img src='https://www.fillmurray.com/500/300' />
+            </div>
           </div>
         </div>
       </div>

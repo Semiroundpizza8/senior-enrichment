@@ -48,14 +48,14 @@ Use at least sequelize, express, react, and redux when creating this app. You ca
   XXXX * see a list of all campuses on the **Campuses** view 
   XXXX * see a list of all students on the **Students** view
   XXXX see details about a campus on the **Single Campus** view, including that campus's students
-  * see details about a student on the **Single Student** view, including that student's campus
+  XXXX * see details about a student on the **Single Student** view, including that student's campus
 
 - Actions: as a user I...
   XXXX * can create a campus
   * can edit a campus's info, XXXX including adding/removing a student to/from that campus
   XXXX * can delete a campus
   XXXX * can create a student
-  * can edit a student's info, XXX including the campus that student is assigned to
+  XXXX * can edit a student's info, including the campus that student is assigned to
   XXXX * can delete a student
 
 ### Routes

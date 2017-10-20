@@ -21,7 +21,6 @@ class Root extends Component {
 
   componentDidMount() {
     this.props.fetchInitialData();
-    console.log("PROPS", this.props)
   }
 
   render() {

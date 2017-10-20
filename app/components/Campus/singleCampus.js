@@ -48,18 +48,17 @@ class Main extends Component {
 
   render() {
     const campus = this.props.campuses.filter(campus => (campus.id == +this.props.match.params.id))
-    console.log("Props", campus)
     return (
       <div className="middle">
         <div className="row">
-          <h1 className="col-md-3 col-md-offset-4">Students</h1>
+          <h1 className="col-md-3 col-md-offset-4">Student Body</h1>
         </div>
         <div className="container">
-          <div className="col-md-3">
+          <div className="col-md-3 col-md-offset-1">
             {campus.length ? <h1>{campus[0].name}</h1> : <div/>}
           </div>
           <div className="col-md-6">
-            {this.campusTable(1)}
+            {campus.length ? this.campusTable(campus[0].id): <div/>}
           </div>
         </div>
       </div>

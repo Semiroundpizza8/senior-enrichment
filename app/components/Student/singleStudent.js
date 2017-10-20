@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store.jsx';
-import { getCampuses } from '../../reducers';
+import { putStudent } from '../../reducers';
 
 
 class Main extends Component {
@@ -15,7 +15,7 @@ class Main extends Component {
   }
 
   studentCell(student) {
-    if(!student) return
+    if (!student) return
     return (
       <tr key={student.id} title={student.id}>
         <th scope="row">{student.name}</th>
@@ -33,34 +33,37 @@ class Main extends Component {
   campusTable(campusId) {
     var students = this.props.students.filter(student => student.Campus.id === campusId)
     return (
-        <table className="table">
-          <thead className="thead-inverse">
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Campus</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody className="container" ref={this.dragulaDecorator} title={campusId}>
-            {students.map(student => this.studentCell(student))}
-          </tbody>
-        </table>
+      <table className="table">
+        <thead className="thead-inverse">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Campus</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody className="container" ref={this.dragulaDecorator} title={campusId}>
+          {students.map(student => this.studentCell(student))}
+        </tbody>
+      </table>
     )
   }
 
   render() {
+    const currentStudent = this.props.students.filter(student => (student.id == +this.props.match.params.id))
+    if(!currentStudent.length) return (<div/>) 
     return (
       <div className="middle">
         <div className="row">
-          <h1 className="col-md-3 col-md-offset-4">Students</h1>
+          <h1 className="col-md-3 col-md-offset-4">Classmates at {currentStudent[0].Campus.name}</h1>
         </div>
         <div className="container">
-        <div className="col-md-3">
-            <h1>CAMPUS NAME</h1>
+          <div className="col-md-3 col-md-offset-1">
+            <h1>{currentStudent[0].name}</h1>
+            <h2>{currentStudent[0].email}</h2>
           </div>
           <div className="col-md-6">
-            {this.campusTable(1)}
+            {this.campusTable(currentStudent[0].CampusId)}
           </div>
         </div>
       </div>

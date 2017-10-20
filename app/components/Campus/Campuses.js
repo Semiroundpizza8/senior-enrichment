@@ -1,71 +1,117 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store.jsx';
-import { getCampuses, deleteCampus, postCampus } from '../../reducers';
+import { getCampuses, postCampus, putCampus, deleteCampus } from '../../reducers';
 
-
+//----------------
+//COMPONENT
+//-------------------------
 class Main extends Component {
   constructor(props) {
-    super(props)
-    this.campusView = this.campusView.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    super(props);
+    this.state = {
+    }
+    this.campusCell = this.campusCell.bind(this);
+    this.addSubmitHandler = this.addSubmitHandler.bind(this);
+    this.updateSubmitHandler = this.updateSubmitHandler.bind(this);
     this.addCampusForm = this.addCampusForm.bind(this);
-    this.submitHandler = this.submitHandler.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
   }
 
-  handleClick(campus) {
-    this.props.removeCampus(campus.id);
-  }
 
-  campusView(campus) {
-    return (
-      <div className="col-md-4 col-sm-6 col-xs-12" key={campus.id}>
-        <img src={campus.image}></img>
-        <h4>
-          {campus.name}
-        </h4>
-        <p>
-          <a href={`/campuses/${campus.id}`} className="glyphicon glyphicon-folder-open btn"></a>
-          <i className="glyphicon glyphicon-remove btn" onClick={() => this.handleClick(campus)}></i>
-        </p>
-      </div>
-    )
-  }
-
-  submitHandler(event) {
+  addSubmitHandler(event) {
     event.preventDefault()
     let campus = {
       name: event.target.name.value,
-      image: event.target.pic.value
+      image: event.target.image.value,
     }
     this.props.addCampus(campus);
   }
 
+  
   addCampusForm() {
     return (
-      <div className="col-md-3">
-      <h1>Add New Campus</h1>
-      <form onSubmit={this.submitHandler} id="addCampusForm">
-        <input type="text" name="name"></input>
-        <input type="text" name="pic"></input>
-        <input type="submit"></input>
-      </form>
-    </div>
+      <div className="col-md-3 well">
+        <h1>Add New Campus</h1>
+        <form onSubmit={this.addSubmitHandler} id="addCampusForm">
+          <input type="text" name="name"></input>
+          <input type="text" name="image"></input>
+          <input type="submit"></input>
+        </form>
+      </div>
+    )
+  }
+
+  updateSubmitHandler(event) {
+    event.preventDefault()
+    var campus = {
+      image: event.target.image.value,
+    }
+    this.props.updateCampus(event.target.campus.value, campus);
+  }
+
+
+  updateCampusForm() {
+    return (
+      <div className="col-md-3 well">
+        <h1>Update Campus</h1>
+        <form onSubmit={this.updateSubmitHandler} id="updateCampusForm">
+          <select name="campus" form="updateCampusForm">
+            {this.props.campuses.map(campus => <option value={campus.id}>{campus.name}</option>)}
+          </select>
+          <input type="text" name="image URL"></input>
+          <input type="submit"></input>
+        </form>
+      </div>
+    )
+  }
+
+  handleDelete(id) {
+    store.dispatch(this.props.removeCampus(id));
+  }
+
+  campusCell(campus) {
+    return (
+      <tr key={campus.id}>
+        <th scope="row"><img src={campus.image}></img></th>
+        <td><a href={`/campuses/${campus.id}`}>{campus.name}</a></td>
+        <td>{this.props.students.filter(ele => ele.CampusId === campus.id).length}</td>
+        <td>
+          <a type="button" className="btn btn-default" onClick={() => { this.handleDelete(campus.id) }}>
+            <i className="glyphicon glyphicon-remove"></i>
+          </a>
+        </td>
+      </tr>
     )
   }
 
   render() {
-    console.log(this.props)
     return (
-      <div className="middle container">
-        <div className="row">
-          {this.props.campuses.map(campus => this.campusView(campus))}
-          <div className="col-md-4 col-sm-6 col-xs-12">
-            {this.addCampusForm()}
+      <div className="middle">
+        <div className="container">
+          <div className="row">
+            <h1 className='col-md-offset-1'>Campuses</h1>
           </div>
+          <div className="campusFrames col-md-9">
+            <table className="table">
+              <thead className="thead-inverse">
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Size of Student Body</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.props.campuses.map(campus => this.campusCell(campus))}
+              </tbody>
+            </table>
+          </div>
+          {this.addCampusForm()}
+          {this.updateCampusForm()}
         </div>
       </div>
     )
@@ -76,13 +122,16 @@ class Main extends Component {
 //CONTAINER
 //-------------------------
 
-const mapStateToProps = ({ campuses }) => ({ campuses });
+const mapStateToProps = ({ students, campuses }) => ({ students, campuses });
 const mapDispatch = dispatch => ({
+  addCampus: Campus => {
+    dispatch(postCampus(Campus));
+  },
+  updateCampus: (id, Campus) => {
+    dispatch(putCampus(id, Campus));
+  },
   removeCampus: (id) => {
     dispatch(deleteCampus(id));
-  },
-  addCampus: (campus) => {
-    dispatch(postCampus(campus));
   }
 });
 

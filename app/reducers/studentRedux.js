@@ -60,6 +60,8 @@ export const deleteStudent = id => dispatch => {
 
 export const putStudent = (id, student) => dispatch => {
   axios.put(`api/student/${id}`, student)
-    .then(res => dispatch(updateStudent(res.data)))
+    .then(res => {
+      dispatch(updateStudent(res.data))
+    })
     .catch(err => console.error('Updating student unsuccessful', err))
 }

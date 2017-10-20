@@ -24,9 +24,6 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   var student = req.body
-  console.log("STUDENT", student)
-  console.log("REQ", req.body)
-  console.log("REQZERO", req.body[0])
   if (!student.name || !student.email || !student.CampusId) {
       res.sendStatus(500)
       return;
