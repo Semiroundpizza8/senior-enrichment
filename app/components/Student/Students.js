@@ -22,11 +22,11 @@ class Main extends Component {
   }
 
   handleDelete(id) {
-    store.dispatch(this.props.removeStudent(id));
+    this.props.removeStudent(id);
   }
 
   studentCell(student) {
-    if (!student.Campus) return <div />
+    if (!student.Campus) return <tr />
     return (
       <tr key={student.id}>
         <th scope="row"><a href={`/students/${student.id}`}>{student.name}</a></th>
@@ -53,6 +53,7 @@ class Main extends Component {
 
   
   addStudentForm() {
+    if(!this.props.students.length) return (<div/>)
     return (
       <div className="col-md-3 well">
         <h1>Add New Student</h1>
@@ -79,12 +80,13 @@ class Main extends Component {
 
 
   updateStudentForm() {
+    if(!this.props.students.length) return (<div/>)
     return (
       <div className="col-md-3 well">
         <h1>Update Student</h1>
         <form onSubmit={this.updateSubmitHandler} id="updateStudentForm">
           <select name="student" form="updateStudentForm">
-            {this.props.students.map(student => <option value={student.id}>{student.name}</option>)}
+            {this.props.students.map(student => <option key={student.id} value={student.id}>{student.name}</option>)}
           </select>
           <input type="text" name="email"></input>
           <select name="campus" form="updateStudentForm">
@@ -97,6 +99,7 @@ class Main extends Component {
   }
 
   render() {
+    if(!this.props.students.length) return (<div/>)
     return (
       <div className="middle">
         <div className="container">

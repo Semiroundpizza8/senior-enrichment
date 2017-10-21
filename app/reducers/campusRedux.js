@@ -44,18 +44,19 @@ export const getCampuses = () => dispatch => {
        .catch(err => console.error('Fetching students unsuccessful', err));
 };
 
-export const postCampus = campuses => dispatch => {
-  axios.post('api/campus', campuses)
-    .then(res => dispatch(createCampus(res.data)))
+export const postCampus = campus => dispatch => {
+  console.log(campus);
+  axios.post('api/campus', campus)
+    .then(res => {
+      console.log(res.data)
+      dispatch(createCampus(res.data[0]))
+    })
     .catch(err => console.error('Posting student unsuccessful', err))
 }
 
 export const putCampus = (id, campus) => dispatch => {
   axios.put(`api/campus/${id}`, campus)
-    .then(res => {
-      console.log(res.data)
-      dispatch(updateCampus(res.data))
-    })
+    .then(res => dispatch(updateCampus(res.data)))
     .catch(err => console.error(`Updating student ${campus} unsuccessful`, err))
 }
 

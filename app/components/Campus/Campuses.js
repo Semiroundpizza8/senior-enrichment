@@ -24,10 +24,13 @@ class Main extends Component {
 
   addSubmitHandler(event) {
     event.preventDefault()
+    console.log("Name", event.target.name.value)
+    console.log("Image", event.target.image.value)
     let campus = {
       name: event.target.name.value,
       image: event.target.image.value,
     }
+    console.log("Campus", campus)
     this.props.addCampus(campus);
   }
 
@@ -61,7 +64,7 @@ class Main extends Component {
         <h1>Update Campus</h1>
         <form onSubmit={this.updateSubmitHandler} id="updateCampusForm">
           <select name="campus" form="updateCampusForm">
-            {this.props.campuses.map(campus => <option value={campus.id}>{campus.name}</option>)}
+            {this.props.campuses.map(campus => <option key={campus.id} value={campus.id}>{campus.name}</option>)}
           </select>
           <input type="text" name="image"></input>
           <input type="submit"></input>
@@ -71,7 +74,7 @@ class Main extends Component {
   }
 
   handleDelete(id) {
-    store.dispatch(this.props.removeCampus(id));
+    this.props.removeCampus(id);
   }
 
   campusCell(campus) {
@@ -126,8 +129,8 @@ class Main extends Component {
 
 const mapStateToProps = ({ students, campuses }) => ({ students, campuses });
 const mapDispatch = dispatch => ({
-  addCampus: Campus => {
-    dispatch(postCampus(Campus));
+  addCampus: campus => {
+    dispatch(postCampus(campus));
   },
   updateCampus: (id, Campus) => {
     dispatch(putCampus(id, Campus));

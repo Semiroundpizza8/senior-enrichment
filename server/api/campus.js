@@ -27,7 +27,7 @@ router.post('/', (req, res, next) => {
       res.sendStatus(500)
       return;
   }
-  Campuses.findOrCreate({ where: {name: req.body.name} })
+  Campuses.findOrCreate({ where: {name: req.body.name, image: req.body.image} })
   .then(campus => {
     res.status(201).json(campus);
   })
