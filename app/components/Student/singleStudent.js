@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store.jsx';
-import { putStudent } from '../../reducers';
 
 
 class Main extends Component {
@@ -18,14 +17,9 @@ class Main extends Component {
     if (!student) return
     return (
       <tr key={student.id} title={student.id}>
-        <th scope="row">{student.name}</th>
+        <th scope="row"><a href={`../students/${student.id}`}>{student.name} </a></th>
         <td>{student.email}</td>
-        <td>{student.Campus.name}</td>
-        <td>
-          <a type="button" className="btn btn-default" onClick={() => { this.handleDelete(student.id) }}>
-            <i className="glyphicon glyphicon-remove"></i>
-          </a>
-        </td>
+        <td><a href={`../campuses/${student.CampusId}`}>{student.Campus.name}</a></td>
       </tr>
     )
   }
@@ -39,7 +33,6 @@ class Main extends Component {
             <th>Name</th>
             <th>Email</th>
             <th>Campus</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody className="container" ref={this.dragulaDecorator} title={campusId}>
