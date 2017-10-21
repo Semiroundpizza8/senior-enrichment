@@ -105,10 +105,10 @@ class Edit extends Component {
         <div className="row">
           <h1 className="col-md-3 col-md-offset-1">Students</h1>
           <select onChange={this.handleSelectLeft} className="custom-select">
-            {this.props.campuses.map(campus => <option value={campus.id}>{campus.name}</option>)}
+            {this.props.campuses.map(campus => <option key={campus.id} value={campus.id}>{campus.name}</option>)}
           </select>
           <select onChange={this.handleSelectRight}>
-            {this.props.campuses.map(campus => <option value={campus.id}>{campus.name}</option>)}
+            {this.props.campuses.map(campus => <option key={campus.id} value={campus.id}>{campus.name}</option>)}
           </select>
         </div>
         <div className="row container-fluid">

@@ -19,7 +19,7 @@ class Main extends Component {
       <tr key={student.id} title={student.id}>
         <th scope="row"><a href={`../students/${student.id}`}>{student.name} </a></th>
         <td>{student.email}</td>
-        <td><a href={`../campuses/${student.CampusId}`}>{student.Campus.name}</a></td>
+        <td><a href={`../çcampuses/${student.CampusId}`}>{student.Campus.name}</a></td>
       </tr>
     )
   }

@@ -18,6 +18,11 @@ class Main extends Component {
         <th scope="row"><a href={`../students/${student.id}`}>{student.name} </a></th>
         <td>{student.email}</td>
         <td>{student.Campus.name}</td>
+        <td>
+          <a type="button" className="btn btn-default" onClick={() => { this.handleDelete(student.id) }}>
+            <i className="glyphicon glyphicon-remove"></i>
+          </a>
+        </td>
       </tr>
     )
   }
@@ -31,6 +36,7 @@ class Main extends Component {
             <th>Name</th>
             <th>Email</th>
             <th>Campus</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody className="container" ref={this.dragulaDecorator} title={campusId}>
