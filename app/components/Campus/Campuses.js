@@ -55,6 +55,7 @@ class Main extends Component {
 
 
   updateCampusForm() {
+    if(!this.props.campuses.length) return ( <div/> )    
     return (
       <div className="col-md-3 well">
         <h1>Update Campus</h1>
@@ -62,7 +63,7 @@ class Main extends Component {
           <select name="campus" form="updateCampusForm">
             {this.props.campuses.map(campus => <option value={campus.id}>{campus.name}</option>)}
           </select>
-          <input type="text" name="image URL"></input>
+          <input type="text" name="image"></input>
           <input type="submit"></input>
         </form>
       </div>
@@ -89,6 +90,7 @@ class Main extends Component {
   }
 
   render() {
+    if(!this.props.campuses.length) return ( <div/> )
     return (
       <div className="middle">
         <div className="container">

@@ -27,7 +27,7 @@ export default function reducer (students = [], action) {
       return action.students;
 
     case PUT_STUDENT:
-      return students.map(student => ( action.student.id === student.CampusId ? action.student : student ))
+      return students.map(student => ( action.student.id === student.id ? action.student : student ))
 
     case DELETE_STUDENT:
       return students.filter(student => student.id !== action.id);
@@ -61,6 +61,7 @@ export const deleteStudent = id => dispatch => {
 export const putStudent = (id, student) => dispatch => {
   axios.put(`api/student/${id}`, student)
     .then(res => {
+      console.log(res.data)
       dispatch(updateStudent(res.data))
     })
     .catch(err => console.error('Updating student unsuccessful', err))

@@ -11,7 +11,7 @@ const DELETE_CAMPUS = 'DELETE_CAMPUS';
 
 const allCampuses   = campuses => ({ type: GET_CAMPUSES, campuses });
 const createCampus  = campus => ({ type: POST_CAMPUS, campus });
-const updateCampus = campus => ({ type: PUT_CAMPUS, update });
+const updateCampus = campus => ({ type: PUT_CAMPUS, campus });
 const removeCampus = id => ({ type: DELETE_CAMPUS, id });
 
 /* ------------       REDUCERS     ------------------ */
@@ -26,7 +26,7 @@ export default function reducer ( campuses = [], action) {
       return action.campuses;
 
     case PUT_CAMPUS:
-      return action.campus;
+      return campuses.map(campus => ( action.campus.id === campus.id ? action.campus : campus ));
 
     case DELETE_CAMPUS:
       return campuses.filter(campus => campus.id !== action.id);
@@ -51,8 +51,11 @@ export const postCampus = campuses => dispatch => {
 }
 
 export const putCampus = (id, campus) => dispatch => {
-  axios.post(`api/campus/${id}`, campus)
-    .then(res => dispatch(updateCampus(res.data)))
+  axios.put(`api/campus/${id}`, campus)
+    .then(res => {
+      console.log(res.data)
+      dispatch(updateCampus(res.data))
+    })
     .catch(err => console.error(`Updating student ${campus} unsuccessful`, err))
 }
 
